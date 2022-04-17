@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop1.Models;
 
 namespace Shop1.Controllers
 {
     public class MyshopController : Controller
     {
+        private static List<Myshop> _myshop = new List<Myshop>();
         // GET: MyshopController
         public ActionResult Index()
         {
-            return View();
+            return View(_myshop);
         }
 
         // GET: MyshopController/Details/5
@@ -26,10 +28,11 @@ namespace Shop1.Controllers
         // POST: MyshopController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Myshop collection)
         {
             try
             {
+                _myshop.Add(collection);
                 return RedirectToAction(nameof(Index));
             }
             catch
